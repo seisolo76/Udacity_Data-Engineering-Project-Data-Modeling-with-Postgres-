@@ -7,13 +7,11 @@ from sql_queries import *
 
 def process_song_file(cur, filepath):
     """
-    Perform ETL on song_data to create the songs and artists dimensional tables: 
-    - Process a single song data file and upload to database. 
-    - Extract song data + implement sql query to insert records into table.
-    - Extract artist data + implement sql query to insert records into table.
+    Extracts data from the song_data file filters specific coloumns and single row 
+    to create the songs and artists dimensional tables: 
     
     Parameters:
-    - cur: cursor object that allows Python to execute PostgreSQL commands in a database session
+    - cur: cursor object
     - filepath (string) : path to a song_data file
     """
     # open song file
@@ -31,15 +29,11 @@ def process_song_file(cur, filepath):
 
 def process_log_file(cur, filepath):
     """
-    Perform ETL on log_data to create the time and users dimensional tables and songplays fact table: 
-    - Process a single log data file and upload to database. 
-    - Extract log data + implement sql query to insert records into table.   
-    - Extract time data + implement sql query to insert records for the timestamps into table.
-    - Extract user data + implement sql query to insert records into table.
-    - Extract and inserts data for songplays table from different tables by implementing a select query.
+     Extracts data from the log_data file filters specific coloumns and a single row 
+    to create the songs and artists dimensional tables and songplays fact table: 
     
     Parameters:
-    - cur: cursor object that allows Python to execute PostgreSQL commands in a database session
+    - cur: cursor object
     - filepath (string) : path to a log_data file
     """
     # open log file
@@ -85,12 +79,12 @@ def process_log_file(cur, filepath):
 
 
 def process_data(cur, conn, filepath, func):
-    ""
-    Process all files within the filepath directory through the input function.
+    """
+    Process all the files within the filepath directory.
     
     Parameters:
-    - cur: cursor object that allows Python to execute PostgreSQL commands in a database session
-    - conn: connection created to the database
+    - cur: cursor object
+    - conn: connection to the database
     - filepath (string) : path to data file
     - func: process function
     """
@@ -113,12 +107,10 @@ def process_data(cur, conn, filepath, func):
 
 
 def main():
-    """
-    Build ETL Pipeline for Sparkify song play data:
-    
-    Open a session to the Postgres database, 
-    acquire a cursor object to process SQL queries,
-    and process both the song and the log data.    
+    """    
+    Creates the connection to the Postgres database,
+    gets a cursor object.
+    processes both the song and the log data.    
     """
     conn = psycopg2.connect("host=127.0.0.1 dbname=sparkifydb user=student password=student")
     cur = conn.cursor()
